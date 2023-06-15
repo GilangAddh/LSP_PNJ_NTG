@@ -36,3 +36,29 @@ type JenisLSP struct {
 	ID   int
 	Nama string
 }
+
+type JenisSK struct {
+	ID   int
+	Nama string
+}
+
+type SK struct {
+	gorm.Model
+	JudulStandar          string
+	noStandar             string
+	Legalitas_Perundangan string
+	Sektor                string
+	SubSektor             string
+	Penerbit              string
+	JenisSKID             int
+	JenisSK               JenisSK
+}
+
+type LSP_SK struct {
+	gorm.Model
+	ID    int
+	LSPID int
+	SKID  int
+	LSP   LSP
+	SK    SK
+}
