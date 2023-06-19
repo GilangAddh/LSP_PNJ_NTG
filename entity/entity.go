@@ -62,3 +62,13 @@ type LSP_SK struct {
 	LSP   LSP
 	SK    SK
 }
+
+type Accounts struct {
+	gorm.Model
+	ID       int
+	Nama     string
+	NIK      int
+	Email    string
+	Password string
+	Role     string
+}
