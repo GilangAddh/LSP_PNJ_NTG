@@ -2,13 +2,6 @@ package entity
 
 import "gorm.io/gorm"
 
-type AdminAccount struct {
-	ID       int
-	Nama     string
-	Username string
-	Password string
-}
-
 type LSP struct {
 	gorm.Model
 	ID                 int
