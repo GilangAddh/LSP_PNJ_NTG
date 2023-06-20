@@ -37,14 +37,15 @@ type JenisSK struct {
 
 type SK struct {
 	gorm.Model
-	JudulStandar          string
-	noStandar             string
-	Legalitas_Perundangan string
-	Sektor                string
-	SubSektor             string
-	Penerbit              string
-	JenisSKID             int
-	JenisSK               JenisSK
+	ID                   int
+	JudulStandar         string
+	NoStandar            string
+	LegalitasPerundangan string
+	Sektor               string
+	SubSektor            string
+	Penerbit             string
+	JenisSKID            int
+	JenisSK              JenisSK
 }
 
 type LSP_SK struct {

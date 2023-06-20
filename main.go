@@ -4,12 +4,14 @@ import (
 	"fmt"
 	"log"
 
-	"LSP_PNJ_NTG/account"
 	"LSP_PNJ_NTG/entity"
+
+	"LSP_PNJ_NTG/account"
 	"LSP_PNJ_NTG/handler"
 	"LSP_PNJ_NTG/jenis_lsp"
 	"LSP_PNJ_NTG/jenis_sk"
 	"LSP_PNJ_NTG/lsp"
+	"LSP_PNJ_NTG/sk"
 
 	"github.com/gin-gonic/gin"
 	//"gorm.io/driver/postgres"
@@ -29,17 +31,18 @@ func main() {
 	dsn := "host=localhost user=postgres password=superadmin dbname=LSP_PNJ_NTG port=5433 sslmode=disable TimeZone=Asia/Shanghai"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
-	// db.AutoMigrate(&entity.JenisLSP{})
-	// db.AutoMigrate(&entity.LSP{})
+	db.AutoMigrate(&entity.JenisLSP{})
+	db.AutoMigrate(&entity.LSP{})
 	db.AutoMigrate(&entity.JenisSK{})
-	// db.AutoMigrate(&entity.SK{})
-	// db.AutoMigrate(&entity.LSP_SK{})
+	db.AutoMigrate(&entity.SK{})
+	db.AutoMigrate(&entity.LSP_SK{})
 	db.AutoMigrate(&entity.Accounts{})
 
 	jenisLSPHandler := handler.NewJenisLSPHandler(jenis_lsp.NewService(jenis_lsp.NewRepository(db)))
 	lspHandler := handler.NewLSPHandler(lsp.NewService(lsp.NewRepository(db)))
 	accountHandler := handler.NewAccountHandler(account.NewService(account.NewRepository(db)))
 	jenisSKHandler := handler.NewJenisSKHandler(jenis_sk.NewService(jenis_sk.NewRepository(db)))
+	skHandler := handler.NewSKHandler(sk.NewService(sk.NewRepository(db)))
 
 	if err != nil {
 		log.Fatal("Db connection Error")
@@ -75,6 +78,13 @@ func main() {
 	v1.GET("/jenis-sk/:id", jenisSKHandler.GetJenisSK)
 	v1.DELETE("/jenis-sk/:id", jenisSKHandler.DeleteJenisSK)
 	v1.PUT("/jenis-sk/:id", jenisSKHandler.UpdatejenisSK)
+
+	// SK ROUTE
+	v1.POST("/sk", skHandler.CreateSK)
+	v1.GET("/sk", skHandler.GetSKs)
+	v1.GET("/sk/:id", skHandler.GetSKs)
+	v1.DELETE("/sk/:id", skHandler.DeleteSK)
+	v1.PUT("/sk/:id", skHandler.UpdateSK)
 
 	router.Run(":8081")
 }
