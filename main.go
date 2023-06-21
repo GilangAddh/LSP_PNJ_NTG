@@ -15,9 +15,8 @@ import (
 	"LSP_PNJ_NTG/sk"
 
 	"github.com/gin-gonic/gin"
-	//"gorm.io/driver/postgres"
 
-	//"gorm.io/driver/mysql"
+	// "gorm.io/driver/mysql"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -38,6 +37,8 @@ func main() {
 	db.AutoMigrate(&entity.SK{})
 	db.AutoMigrate(&entity.LSP_SK{})
 	db.AutoMigrate(&entity.Accounts{})
+	db.AutoMigrate(&entity.Skema_Sertifikasi{})
+	db.AutoMigrate(&entity.Persyaratan_Spesifikasi{})
 
 	jenisLSPHandler := handler.NewJenisLSPHandler(jenis_lsp.NewService(jenis_lsp.NewRepository(db)))
 	lspHandler := handler.NewLSPHandler(lsp.NewService(lsp.NewRepository(db)))

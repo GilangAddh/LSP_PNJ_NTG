@@ -66,3 +66,24 @@ type Accounts struct {
 	Password string
 	Role     string
 }
+
+type Skema_Sertifikasi struct {
+	gorm.Model
+	ID              int
+	Kode            string
+	Judul           string
+	JudulInggris    string
+	KeteranganBukti string
+	KedalamanBukti  string
+	SKID            int
+	SK              SK
+}
+
+type Persyaratan_Spesifikasi struct {
+	gorm.Model
+	ID                  int
+	Jenis               string
+	Nama                string
+	Skema_SertifikasiID int
+	Skema_Sertifikasi   Skema_Sertifikasi
+}
