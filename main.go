@@ -13,6 +13,7 @@ import (
 	"LSP_PNJ_NTG/lsp"
 	"LSP_PNJ_NTG/lsp_sk"
 	"LSP_PNJ_NTG/sk"
+	"LSP_PNJ_NTG/skema_sertifikasi"
 
 	"github.com/gin-gonic/gin"
 
@@ -46,6 +47,7 @@ func main() {
 	jenisSKHandler := handler.NewJenisSKHandler(jenis_sk.NewService(jenis_sk.NewRepository(db)))
 	skHandler := handler.NewSKHandler(sk.NewService(sk.NewRepository(db)))
 	lspskHandler := handler.NewLSPSKHandler(lsp_sk.NewService(lsp_sk.NewRepository(db)))
+	skemaHandler := handler.NewskemaHandler(skema_sertifikasi.NewService(skema_sertifikasi.NewRepository(db)))
 
 	if err != nil {
 		log.Fatal("Db connection Error")
@@ -95,6 +97,13 @@ func main() {
 	v1.GET("/lsp-sk/:id", lspskHandler.GetLSPSK)
 	v1.DELETE("/lsp-sk/:id", lspskHandler.DeleteLSPSK)
 	v1.PUT("/lsp-sk/:id", lspskHandler.UpdateLSPSK)
+
+	// LSP SK ROUTE
+	v1.POST("/skema", skemaHandler.CreateSkema)
+	v1.GET("/skema", skemaHandler.GetSkemas)
+	v1.GET("/skema/:id", skemaHandler.GetSkema)
+	v1.DELETE("/skema/:id", skemaHandler.DeleteSkema)
+	v1.PUT("/skema/:id", skemaHandler.UpdateSkema)
 
 	router.Run(":8081")
 }
